@@ -9,29 +9,19 @@ namespace RecaudacionPU.Manejador
      */
     public class Esperar
     {
-        public static bool ElementoPresente(IWebDriver driver, By elemento)
+        public static bool ElementoPresente(IWebDriver driver, By elemento, int segundos = 6)
         {
             try
             {
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(elemento));
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(segundos));
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(elemento));
                 return driver.FindElement(elemento).Displayed;
             }
-            catch { }
-
-            return false;
-        }
-
-        public static void Tarjeta(IWebDriver driver, By elemento, int seconds)
-        {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
-
-            Func<IWebDriver, bool> waitForElement = new Func<IWebDriver, bool>((IWebDriver Web) =>
+            catch 
             {
-                Web.FindElement(elemento);
-                return true;
-            });
-            wait.Until(waitForElement);
+                return false;
+            }
+            
         }
     }
 }

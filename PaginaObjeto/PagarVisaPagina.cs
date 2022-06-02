@@ -22,6 +22,7 @@ namespace RecaudacionPU.PaginaObjeto
         protected By txtname = By.Id("name");
         protected By txtlastname = By.Id("lastname");
         protected By txtemail = By.Id("email");
+        protected By frmVisa = By.Id("visaNetJS");
 
         //Datos de la tarjeta
         protected string strnumber = ConfigurationManager.AppSettings["Number"]; 
@@ -42,8 +43,9 @@ namespace RecaudacionPU.PaginaObjeto
 
         public bool NumeroPresente()
         {
+            bool presente = Esperar.ElementoPresente(Driver, frmVisa, 40);
             Driver.SwitchTo().Frame("visaNetJS");
-            return Esperar.ElementoPresente(Driver, txtnumber);
+            return presente;
         }
 
         public void LlenarTarjeta()
@@ -62,18 +64,14 @@ namespace RecaudacionPU.PaginaObjeto
 
         public void ClickPagarVisa()
         {
-            if (Driver.FindElement(cmdPagarVisa).Enabled)
-                Driver.FindElement(cmdPagarVisa).Click();
+            IWebElement btnVisa = Driver.FindElement(cmdPagarVisa);
+            btnVisa.Click();
         }
 
         public void RealizarPago()
         {
-            Esperar.Tarjeta(Driver, txtnumber, 30);
-            TestContext.Out.WriteLine("Empieza llenado de tarjeta");
             LlenarTarjeta();
-            TestContext.Out.WriteLine("Termina llenado de tarjeta");
             ClickPagarVisa();
-            TestContext.Out.WriteLine("Ejecuta pago Visa (Fin)");
         }
 
     }

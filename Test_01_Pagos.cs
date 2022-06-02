@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using RecaudacionPU.PaginaObjeto;
 using System;
 using System.Configuration;
@@ -24,14 +25,14 @@ namespace RecaudacionPU
         {
             Driver = new ChromeDriver();
             Driver.Navigate().GoToUrl(PaginaURL);
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(4);
         }
 
         [Test]
         public void PagoEstandar()
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
-            ListarDeudaPagina listarDeudaPagina = suministroPagina.ConsultarSuministro("26565295");
+            ListarDeudaPagina listarDeudaPagina = suministroPagina.ConsultarSuministro("5329723");
 
             estado = listarDeudaPagina.DeudaPresente();
             if (estado)
@@ -48,7 +49,7 @@ namespace RecaudacionPU
                         TestContext.Out.WriteLine("Pagina PagarVisa no esta presente");
 
                     pagarVisaPagina.RealizarPago();
-                    Thread.Sleep(TimeSpan.FromSeconds(2));
+                    Thread.Sleep(TimeSpan.FromSeconds(1));
                     Assert.IsTrue(estado);
                 }
                 else
@@ -64,11 +65,11 @@ namespace RecaudacionPU
             }
         }
 
-        [TestCase("5148192")]
-        [TestCase("5162511")]
-        [TestCase("5958989")]
-        [TestCase("5938574")]
-        [TestCase("5630927")]
+        [TestCase("25352157")]
+        [TestCase("25866481")]
+        [TestCase("25886241")]
+        [TestCase("25880426")]
+        [TestCase("25961865")]
         public void PagoParalelo(string NroServicio)
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
@@ -89,7 +90,7 @@ namespace RecaudacionPU
                         TestContext.Out.WriteLine("Pagina PagarVisa no esta presente");
 
                     pagarVisaPagina.RealizarPago();
-                    Thread.Sleep(TimeSpan.FromSeconds(2));
+                    Thread.Sleep(TimeSpan.FromSeconds(1));
                     Assert.IsTrue(estado);
                 }
                 else
