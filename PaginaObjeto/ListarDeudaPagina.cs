@@ -4,6 +4,7 @@ using RecaudacionPU.Manejador;
 using RecaudacionPU.PaginaObjeto;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace RecaudacionPU
@@ -18,7 +19,7 @@ namespace RecaudacionPU
         protected By lblDeudaTotal = By.Id("lblDeudaTotal");
         protected By chkPeriodos = By.XPath("//input[@type='checkbox']");
         protected By btnNext01 = By.Id("btnNext01");
-        
+        protected By chkTerminos = By.Id("chkTerminos");
 
         public ListarDeudaPagina(IWebDriver driver)
         {
@@ -41,6 +42,14 @@ namespace RecaudacionPU
             {
                 chk.Click();
             }
+        }
+
+        public void MarcarCheckMes()
+        {
+            IReadOnlyCollection<IWebElement> CheckPeriodo = Driver.FindElements(chkPeriodos);
+            IWebElement chk = CheckPeriodo.ElementAt(0);
+            chk.Click();
+            Driver.FindElement(chkTerminos).Click();
         }
 
         public ConfirmaSolicitudPagina ClickSiguiente()
