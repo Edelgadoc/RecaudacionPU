@@ -53,7 +53,7 @@ namespace RecaudacionPU.PaginaObjeto
             Driver.FindElement(txtnumber).SendKeys(strnumber.Substring(0,4));
             Driver.FindElement(txtnumber).SendKeys(strnumber.Substring(5,4));
             Driver.FindElement(txtnumber).SendKeys(strnumber.Substring(10,4));
-            Driver.FindElement(txtnumber).SendKeys(strnumber.Substring(15,4));
+            Driver.FindElement(txtnumber).SendKeys(strnumber.Substring(15, strnumber.Length -15 ));
             Driver.FindElement(txtexpiry).SendKeys(strexpity.Substring(0,2));
             Driver.FindElement(txtexpiry).SendKeys(strexpity.Substring(2,2));
             Driver.FindElement(txtcvc).SendKeys(strcvc);

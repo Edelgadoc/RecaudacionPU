@@ -29,10 +29,10 @@ namespace RecaudacionPU
         }
 
         [Test]
-        public void PagoUnsuministro()
+        public void PagoUnSuministro()
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
-            ListarDeudaPagina listarDeudaPagina = suministroPagina.ConsultarSuministro("5329723");
+            ListarDeudaPagina listarDeudaPagina = suministroPagina.ConsultarSuministro("36399269");
 
             estado = listarDeudaPagina.DeudaPresente();
             if (estado)
@@ -65,11 +65,11 @@ namespace RecaudacionPU
             }
         }
 
-        [TestCase("26369220")]
-        [TestCase("26369355")]
-        [TestCase("26369346")]
-        [TestCase("65581468")]
-        [TestCase("65581379")]
+        [TestCase("27124132")]
+        [TestCase("27113916")]
+        [TestCase("26555360")]
+        [TestCase("26556714")]
+        [TestCase("26551594")]
         public void PagoSecuencial(string NroServicio)
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
@@ -106,11 +106,11 @@ namespace RecaudacionPU
             }
         }
 
-        [TestCase("27191832")]
-        [TestCase("27072330")]
-        [TestCase("27182815")]
-        [TestCase("27161646")]
-        [TestCase("27156388")]
+        [TestCase("27195887")]
+        [TestCase("27055483")]
+        [TestCase("27156996")]
+        [TestCase("27168861")]
+        [TestCase("27071674")]
         public void PagoUnMesDeuda(string NroServicio)
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
