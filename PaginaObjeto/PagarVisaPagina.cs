@@ -24,6 +24,11 @@ namespace RecaudacionPU.PaginaObjeto
         protected By txtemail = By.Id("email");
         protected By frmVisa = By.Id("visaNetJS");
 
+        protected By frame02 = By.Id("divStep02");
+        protected By frame03 = By.Id("divStep03");
+        protected By txtResultado = By.Id("lblPayTitle");
+        protected By txtSubResultado = By.Id("lblPaySubTitle");
+
         //Datos de la tarjeta
         protected string strnumber = ConfigurationManager.AppSettings["Number"]; 
         protected string strexpity = ConfigurationManager.AppSettings["Expity"]; 
@@ -72,7 +77,28 @@ namespace RecaudacionPU.PaginaObjeto
         {
             LlenarTarjeta();
             ClickPagarVisa();
+            Driver.SwitchTo().DefaultContent();
         }
 
+        public bool ObtenerResultado()
+        {
+            bool existe = false;
+
+            Esperar.ElementoPresente(Driver, frame03, 20);
+            Esperar.ElementoPresente(Driver, txtSubResultado, 20);
+            if (Esperar.ElementoPresente(Driver, frame02))
+                TestContext.Out.WriteLine("Pagina de Resultados no esta presente");
+            else
+            {
+                existe = Esperar.ElementoPresente(Driver, txtResultado, 20);
+
+                if (existe)
+                {
+                    TestContext.Out.WriteLine(Driver.FindElement(txtResultado).Text);
+                    existe = Driver.FindElement(txtResultado).Text.Equals("PAGO REALIZADO");
+                }
+            }
+            return existe;
+        }
     }
 }

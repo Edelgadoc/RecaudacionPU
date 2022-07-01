@@ -32,7 +32,7 @@ namespace RecaudacionPU
         public void PagoUnSuministro()
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
-            ListarDeudaPagina listarDeudaPagina = suministroPagina.ConsultarSuministro("36399269");
+            ListarDeudaPagina listarDeudaPagina = suministroPagina.ConsultarSuministro("37832477");
 
             estado = listarDeudaPagina.DeudaPresente();
             if (estado)
@@ -45,31 +45,32 @@ namespace RecaudacionPU
                 {
                     PagarVisaPagina pagarVisaPagina = confirmaSolicitudPagina.ClickConfirmaPagar();
                     estado = pagarVisaPagina.NumeroPresente();
-                    if (!estado)
-                        TestContext.Out.WriteLine("Pagina PagarVisa no esta presente");
+                    if (estado)
+                    {
+                        pagarVisaPagina.RealizarPago();
+                        estado = pagarVisaPagina.ObtenerResultado();
 
-                    pagarVisaPagina.RealizarPago();
-                    Thread.Sleep(TimeSpan.FromSeconds(1));
-                    Assert.IsTrue(estado);
+                        if (estado)
+                            Assert.IsTrue(estado);
+                        else
+                            Assert.Fail();
+                    }
+                    else
+                        Assert.Fail("Pagina PagarVisa no esta presente");
                 }
                 else
-                {
-                    TestContext.Out.WriteLine("Página ConfirmaSolicitud no esta presente");
-                    Assert.Fail();
-                }
+                    Assert.Fail("Página ConfirmaSolicitud no esta presente");
             }
             else
-            {
-                TestContext.Out.WriteLine("Página ListarDeuda no esta presente (verifique deuda)");
-                Assert.Fail();
-            }
+                Assert.Fail("Página ListarDeuda no esta presente (verifique deuda)");
         }
 
-        [TestCase("27124132")]
-        [TestCase("27113916")]
-        [TestCase("26555360")]
-        [TestCase("26556714")]
-        [TestCase("26551594")]
+
+        [TestCase("38493804")]
+        [TestCase("35456057")]
+        [TestCase("35942353")]
+        [TestCase("35454339")]
+        [TestCase("26611084")]
         public void PagoSecuencial(string NroServicio)
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
@@ -86,31 +87,36 @@ namespace RecaudacionPU
                 {
                     PagarVisaPagina pagarVisaPagina = confirmaSolicitudPagina.ClickConfirmaPagar();
                     estado = pagarVisaPagina.NumeroPresente();
-                    if (!estado)
-                        TestContext.Out.WriteLine("Pagina PagarVisa no esta presente");
+                    if (estado)
+                    {
+                        pagarVisaPagina.RealizarPago();
+                        estado = pagarVisaPagina.ObtenerResultado();
 
-                    pagarVisaPagina.RealizarPago();
-                    Thread.Sleep(TimeSpan.FromSeconds(1));
-                    Assert.IsTrue(estado);
+                        if (estado)
+                        {
+                            Assert.IsTrue(estado);
+                            Thread.Sleep(TimeSpan.FromSeconds(1));
+                            Driver.Quit();
+                        }
+                        else
+                            Assert.Fail();
+                    }
+                    else
+                        Assert.Fail("Pagina PagarVisa no esta presente");
                 }
                 else
-                {
-                    TestContext.Out.WriteLine("Página ConfirmaSolicitud no esta presente");
-                    Assert.Fail();
-                }
+                    Assert.Fail("Página ConfirmaSolicitud no esta presente");
             }
             else
-            {
-                TestContext.Out.WriteLine("Página ListarDeuda no esta presente (verifique deuda)");
-                Assert.Fail();
-            }
+                Assert.Fail("Página ListarDeuda no esta presente (verifique deuda)");
         }
 
-        [TestCase("27195887")]
-        [TestCase("27055483")]
-        [TestCase("27156996")]
-        [TestCase("27168861")]
-        [TestCase("27071674")]
+
+        [TestCase("27074059")]
+        [TestCase("27055975")]
+        [TestCase("27055634")]
+        [TestCase("27055616")]
+        [TestCase("27055474")]
         public void PagoUnMesDeuda(string NroServicio)
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
@@ -127,31 +133,35 @@ namespace RecaudacionPU
                 {
                     PagarVisaPagina pagarVisaPagina = confirmaSolicitudPagina.ClickConfirmaPagar();
                     estado = pagarVisaPagina.NumeroPresente();
-                    if (!estado)
-                        TestContext.Out.WriteLine("Pagina PagarVisa no esta presente");
+                    if (estado)
+                    {
+                        pagarVisaPagina.RealizarPago();
+                        estado = pagarVisaPagina.ObtenerResultado();
 
-                    pagarVisaPagina.RealizarPago();
-                    Thread.Sleep(TimeSpan.FromSeconds(1));
-                    Assert.IsTrue(estado);
+                        if (estado)
+                        {
+                            Assert.IsTrue(estado);
+                            Thread.Sleep(TimeSpan.FromSeconds(1));
+                            Driver.Quit();
+                        }
+                        else
+                            Assert.Fail();
+                    }
+                    else
+                        Assert.Fail("Pagina PagarVisa no esta presente");
                 }
                 else
-                {
-                    TestContext.Out.WriteLine("Página ConfirmaSolicitud no esta presente");
-                    Assert.Fail();
-                }
+                    Assert.Fail("Página ConfirmaSolicitud no esta presente");
             }
             else
-            {
-                TestContext.Out.WriteLine("Página ListarDeuda no esta presente (verifique deuda)");
-                Assert.Fail();
-            }
+                Assert.Fail("Página ListarDeuda no esta presente (verifique deuda)");
         }
 
 
         [TearDown]
         public void FinalTest()
         {
-            //if (Driver != null)
+            //if (Driver != null )
             //    Driver.Quit();
         }
 
