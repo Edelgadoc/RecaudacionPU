@@ -24,10 +24,10 @@ namespace RecaudacionPU.PaginaObjeto
         protected By txtemail = By.Id("email");
         protected By frmVisa = By.Id("visaNetJS");
 
-        protected By frame02 = By.Id("divStep02");
         protected By frame03 = By.Id("divStep03");
         protected By txtResultado = By.Id("lblPayTitle");
         protected By txtSubResultado = By.Id("lblPaySubTitle");
+        protected By btnFinal = By.Id("btnFinish");
 
         //Datos de la tarjeta
         protected string strnumber = ConfigurationManager.AppSettings["Number"]; 
@@ -80,24 +80,21 @@ namespace RecaudacionPU.PaginaObjeto
             Driver.SwitchTo().DefaultContent();
         }
 
-        public bool ObtenerResultado()
+        public bool ObtenerResultado( string PaginaURL)
         {
-            bool existe = false;
 
-            Esperar.ElementoPresente(Driver, frame03, 20);
-            Esperar.ElementoPresente(Driver, txtSubResultado, 20);
-            if (Esperar.ElementoPresente(Driver, frame02))
-                TestContext.Out.WriteLine("Pagina de Resultados no esta presente");
+            bool existe = Esperar.ElementoPresente(Driver, frame03, 40);
+
+            if (existe)
+            {
+                TestContext.Out.WriteLine(Driver.FindElement(txtResultado).Text);
+                existe = Driver.FindElement(txtResultado).Text.Equals("PAGO REALIZADO");
+            }
             else
             {
-                existe = Esperar.ElementoPresente(Driver, txtResultado, 20);
-
-                if (existe)
-                {
-                    TestContext.Out.WriteLine(Driver.FindElement(txtResultado).Text);
-                    existe = Driver.FindElement(txtResultado).Text.Equals("PAGO REALIZADO");
-                }
+                TestContext.Out.WriteLine("Pagina de Resultados no esta presente");
             }
+
             return existe;
         }
     }

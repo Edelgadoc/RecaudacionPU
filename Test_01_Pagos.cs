@@ -32,7 +32,7 @@ namespace RecaudacionPU
         public void PagoUnSuministro()
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
-            ListarDeudaPagina listarDeudaPagina = suministroPagina.ConsultarSuministro("37832477");
+            ListarDeudaPagina listarDeudaPagina = suministroPagina.ConsultarSuministro("27064526");
 
             estado = listarDeudaPagina.DeudaPresente();
             if (estado)
@@ -48,7 +48,7 @@ namespace RecaudacionPU
                     if (estado)
                     {
                         pagarVisaPagina.RealizarPago();
-                        estado = pagarVisaPagina.ObtenerResultado();
+                        estado = pagarVisaPagina.ObtenerResultado(PaginaURL);
 
                         if (estado)
                             Assert.IsTrue(estado);
@@ -90,7 +90,7 @@ namespace RecaudacionPU
                     if (estado)
                     {
                         pagarVisaPagina.RealizarPago();
-                        estado = pagarVisaPagina.ObtenerResultado();
+                        estado = pagarVisaPagina.ObtenerResultado(PaginaURL);
 
                         if (estado)
                         {
@@ -112,11 +112,11 @@ namespace RecaudacionPU
         }
 
 
-        [TestCase("27074059")]
-        [TestCase("27055975")]
-        [TestCase("27055634")]
-        [TestCase("27055616")]
-        [TestCase("27055474")]
+        [TestCase("37743813")]
+        [TestCase("27064553")]
+        [TestCase("27074390")]
+        [TestCase("27077408")]
+        [TestCase("27180777")]
         public void PagoUnMesDeuda(string NroServicio)
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
@@ -136,7 +136,7 @@ namespace RecaudacionPU
                     if (estado)
                     {
                         pagarVisaPagina.RealizarPago();
-                        estado = pagarVisaPagina.ObtenerResultado();
+                        estado = pagarVisaPagina.ObtenerResultado(PaginaURL);
 
                         if (estado)
                         {
