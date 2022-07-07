@@ -112,11 +112,12 @@ namespace RecaudacionPU
         }
 
 
-        [TestCase("37743813")]
-        [TestCase("27064553")]
-        [TestCase("27074390")]
-        [TestCase("27077408")]
+        [TestCase("36530032")]
+        [TestCase("26447916")]
+        [TestCase("26313313")]
+        [TestCase("26514394")]
         [TestCase("27180777")]
+        [TestCase("26513870")]
         public void PagoUnMesDeuda(string NroServicio)
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);

@@ -82,8 +82,8 @@ namespace RecaudacionPU.PaginaObjeto
 
         public bool ObtenerResultado( string PaginaURL)
         {
-
-            bool existe = Esperar.ElementoPresente(Driver, frame03, 40);
+            Esperar.CambioPagina(Driver, PaginaURL, 20);
+            bool existe = Esperar.ElementoPresente(Driver, frame03, 20);
 
             if (existe)
             {
