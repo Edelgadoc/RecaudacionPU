@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Firefox;
 using RecaudacionPU.PaginaObjeto;
 using System;
 using System.Configuration;
@@ -23,7 +23,10 @@ namespace RecaudacionPU
         [SetUp]
         public void InicioTest()
         {
-            Driver = new ChromeDriver();
+            //ChromeOptions options = new ChromeOptions();
+            //options.BinaryLocation = @"C:\Program Files\Google\Chrome Beta\Application\chrome.exe";
+            //Driver = new ChromeDriver();
+            Driver = new FirefoxDriver();
             Driver.Navigate().GoToUrl(PaginaURL);
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(4);
         }
@@ -32,7 +35,7 @@ namespace RecaudacionPU
         public void PagoUnSuministro()
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
-            ListarDeudaPagina listarDeudaPagina = suministroPagina.ConsultarSuministro("27064526");
+            ListarDeudaPagina listarDeudaPagina = suministroPagina.ConsultarSuministro("26618423");
 
             estado = listarDeudaPagina.DeudaPresente();
             if (estado)
@@ -68,9 +71,6 @@ namespace RecaudacionPU
 
         [TestCase("38493804")]
         [TestCase("35456057")]
-        [TestCase("35942353")]
-        [TestCase("35454339")]
-        [TestCase("26611084")]
         public void PagoSecuencial(string NroServicio)
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
@@ -112,12 +112,16 @@ namespace RecaudacionPU
         }
 
 
-        [TestCase("36530032")]
-        [TestCase("26447916")]
-        [TestCase("26313313")]
-        [TestCase("26514394")]
-        [TestCase("27180777")]
-        [TestCase("26513870")]
+        [TestCase("26555360")]
+        [TestCase("36908436")]
+        [TestCase("26653173")]
+        [TestCase("26561788")]
+        [TestCase("26562810")]
+        [TestCase("26377464")]
+        [TestCase("26658410")]
+        [TestCase("26657225")]
+        [TestCase("25816345")]
+        [TestCase("25769942")]
         public void PagoUnMesDeuda(string NroServicio)
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
