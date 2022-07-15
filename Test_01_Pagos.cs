@@ -23,8 +23,6 @@ namespace RecaudacionPU
         [SetUp]
         public void InicioTest()
         {
-            //ChromeOptions options = new ChromeOptions();
-            //options.BinaryLocation = @"C:\Program Files\Google\Chrome Beta\Application\chrome.exe";
             //Driver = new ChromeDriver();
             Driver = new FirefoxDriver();
             Driver.Navigate().GoToUrl(PaginaURL);
@@ -35,7 +33,7 @@ namespace RecaudacionPU
         public void PagoUnSuministro()
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
-            ListarDeudaPagina listarDeudaPagina = suministroPagina.ConsultarSuministro("26618423");
+            ListarDeudaPagina listarDeudaPagina = suministroPagina.ConsultarSuministro("25152307");
 
             estado = listarDeudaPagina.DeudaPresente();
             if (estado)
@@ -112,16 +110,16 @@ namespace RecaudacionPU
         }
 
 
-        [TestCase("26555360")]
-        [TestCase("36908436")]
-        [TestCase("26653173")]
-        [TestCase("26561788")]
-        [TestCase("26562810")]
-        [TestCase("26377464")]
-        [TestCase("26658410")]
-        [TestCase("26657225")]
-        [TestCase("25816345")]
-        [TestCase("25769942")]
+        [TestCase("25106592")]
+        [TestCase("25097902")]
+        [TestCase("25539595")]
+        [TestCase("25931347")]
+        [TestCase("25158294")]
+        [TestCase("25155158")]
+        [TestCase("26384057")]
+        [TestCase("25150723")]
+        [TestCase("35679473")]
+        [TestCase("25418310")]
         public void PagoUnMesDeuda(string NroServicio)
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
