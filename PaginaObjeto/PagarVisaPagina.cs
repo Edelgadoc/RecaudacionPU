@@ -15,7 +15,14 @@ namespace RecaudacionPU.PaginaObjeto
     public class PagarVisaPagina
     {
         protected IWebDriver Driver;
+<<<<<<< HEAD
         protected By cmdPagarVisa = By.XPath("//div[@class='form-groupnoborder btn-holder']/button[1]");
+=======
+        //protected By cmdPagarVisa = By.XPath("/html/body/div[1]/form/div[1]/div[13]/button[1]");
+        //protected By cmdPagarVisa = By.XPath("//button[@class='btn-control btn btn-submit btn-success btn-block btn-pay j-secure-form-submit btn-decorator']");
+        protected By cmdPagarVisa = By.XPath("//div[@class='form-groupnoborder btn-holder']/button[1]");
+        // XPath=//tagname[@attribute1=value1 AND @attribute2=value1]
+>>>>>>> driver dinamico
         protected By txtnumber = By.Id("number");
         protected By txtexpiry = By.Id("expiry");
         protected By txtcvc = By.Id("cvc");

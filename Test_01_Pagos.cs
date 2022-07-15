@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Edge;
 using RecaudacionPU.PaginaObjeto;
 using System;
 using System.Configuration;
@@ -19,17 +20,105 @@ namespace RecaudacionPU
         public string PaginaURL = ConfigurationManager.AppSettings["Url"];
         protected IWebDriver Driver;
         protected bool estado;
+        private const string CHROME = "Chrome";
+        const string FIREFOX = "Firefox";
+        const string EDGE = "Edge";
+
+        private IWebDriver getDriver()
+        {
+            var withBrowser = ConfigurationManager.AppSettings["WithBrowser"];
+            var browser = ConfigurationManager.AppSettings["Browser"];
+
+            DriverService driverService;
+            switch (browser)
+            {
+                case CHROME:
+                    driverService = ChromeDriverService.CreateDefaultService();
+
+                    break;
+                case FIREFOX:
+                    driverService = FirefoxDriverService.CreateDefaultService();
+                    break;
+                case EDGE:
+                    driverService = EdgeDriverService.CreateDefaultService();
+                    break;
+                default:
+                    driverService = ChromeDriverService.CreateDefaultService();
+                    break;
+
+            }
+
+
+            if (withBrowser == "false")
+            {
+                switch (browser)
+                {
+                    case CHROME:
+
+                        ChromeOptions optionsChrome = new ChromeOptions();
+                        optionsChrome.AddArguments("-headless");
+                        optionsChrome.AddArguments("window-size=1920,1080");
+                        Driver = new ChromeDriver((ChromeDriverService)driverService, optionsChrome);
+                        break;
+                    case FIREFOX:
+                        FirefoxOptions optionsFirefox = new FirefoxOptions();
+                        optionsFirefox.AddArguments("-headless");
+                        optionsFirefox.AddArguments("window-size=1920,1080");
+                        Driver = new FirefoxDriver((FirefoxDriverService)driverService, optionsFirefox);
+                        break;
+                    case EDGE:
+                        EdgeOptions optionEdge = new EdgeOptions();
+                        optionEdge.AddArguments("-headless");
+                        optionEdge.AddArguments("window-size=1920,1080");
+                        Driver = new EdgeDriver((EdgeDriverService)driverService, optionEdge);
+                        break;
+                    default:
+                        throw new Exception("Browser no configurado");
+
+
+                }
+
+
+            }
+            else
+            {
+                switch (browser)
+                {
+                    case CHROME:
+                        Driver = new ChromeDriver((ChromeDriverService)driverService);
+                        break;
+                    case FIREFOX:
+                        Driver = new FirefoxDriver((FirefoxDriverService)driverService);
+                        break;
+                    case EDGE:
+                        Driver = new EdgeDriver((EdgeDriverService)driverService);
+                        break;
+                    default:
+                        throw new Exception("Browser no configurado");
+
+
+                }
+
+            }
+
+
+
+            return Driver;
+        }
 
         [SetUp]
         public void InicioTest()
         {
-            //Driver = new ChromeDriver();
-            Driver = new FirefoxDriver();
+
+
+            Driver = getDriver();
+
             Driver.Navigate().GoToUrl(PaginaURL);
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(4);
         }
 
         [Test]
+        [Ignore("Egnorar")]
         public void PagoUnSuministro()
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
@@ -67,8 +156,9 @@ namespace RecaudacionPU
         }
 
 
-        [TestCase("38493804")]
-        [TestCase("35456057")]
+        [TestCase("25308533")]
+        [TestCase("25514587")]
+        [Ignore("Este no va")]
         public void PagoSecuencial(string NroServicio)
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
@@ -110,6 +200,7 @@ namespace RecaudacionPU
         }
 
 
+
         [TestCase("25106592")]
         [TestCase("25097902")]
         [TestCase("25539595")]
@@ -120,6 +211,10 @@ namespace RecaudacionPU
         [TestCase("25150723")]
         [TestCase("35679473")]
         [TestCase("25418310")]
+
+        [TestCase("26161777")]
+
+
         public void PagoUnMesDeuda(string NroServicio)
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
@@ -129,7 +224,7 @@ namespace RecaudacionPU
             if (estado)
             {
                 listarDeudaPagina.MarcarCheckMes();
-                Thread.Sleep(TimeSpan.FromSeconds(1));
+                Thread.Sleep(TimeSpan.FromSeconds(5));
                 ConfirmaSolicitudPagina confirmaSolicitudPagina = listarDeudaPagina.ClickSiguiente();
                 estado = confirmaSolicitudPagina.PedidoPresente();
                 if (estado)

@@ -18,7 +18,7 @@ namespace RecaudacionPU.PaginaObjeto
         public ConfirmaSolicitudPagina(IWebDriver driver)
         {
             Driver = driver;
-            Thread.Sleep(TimeSpan.FromSeconds(3));
+            Thread.Sleep(TimeSpan.FromSeconds(1));
 
             if (!Driver.Title.Equals("Suministro"))
                 TestContext.Out.WriteLine("Esta no es la pagina de Confirmacion de Solicitud");
