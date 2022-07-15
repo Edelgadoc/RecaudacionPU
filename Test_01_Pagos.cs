@@ -39,9 +39,6 @@ namespace RecaudacionPU
                 case FIREFOX:
                     driverService = FirefoxDriverService.CreateDefaultService();
                     break;
-                case EDGE:
-                    driverService = EdgeDriverService.CreateDefaultService();
-                    break;
                 default:
                     driverService = ChromeDriverService.CreateDefaultService();
                     break;
@@ -66,12 +63,6 @@ namespace RecaudacionPU
                         optionsFirefox.AddArguments("window-size=1920,1080");
                         Driver = new FirefoxDriver((FirefoxDriverService)driverService, optionsFirefox);
                         break;
-                    case EDGE:
-                        EdgeOptions optionEdge = new EdgeOptions();
-                        optionEdge.AddArguments("-headless");
-                        optionEdge.AddArguments("window-size=1920,1080");
-                        Driver = new EdgeDriver((EdgeDriverService)driverService, optionEdge);
-                        break;
                     default:
                         throw new Exception("Browser no configurado");
 
@@ -89,9 +80,6 @@ namespace RecaudacionPU
                         break;
                     case FIREFOX:
                         Driver = new FirefoxDriver((FirefoxDriverService)driverService);
-                        break;
-                    case EDGE:
-                        Driver = new EdgeDriver((EdgeDriverService)driverService);
                         break;
                     default:
                         throw new Exception("Browser no configurado");
@@ -116,7 +104,7 @@ namespace RecaudacionPU
         }
 
         [Test]
-        [Ignore("Egnorar")]
+        [Ignore("Ignorar")]
         public void PagoUnSuministro()
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
@@ -198,18 +186,18 @@ namespace RecaudacionPU
         }
 
 
-        [TestCase("26161777")]
+        [TestCase("26394483")]
 
-        [TestCase("26555360")]
-        [TestCase("36908436")]
-        [TestCase("26653173")]
-        [TestCase("26561788")]
-        [TestCase("26562810")]
-        [TestCase("26377464")]
-        [TestCase("26658410")]
-        [TestCase("26657225")]
-        [TestCase("25816345")]
-        [TestCase("25769942")]
+        //[TestCase("26555360")]
+        //[TestCase("36908436")]
+        //[TestCase("26653173")]
+        //[TestCase("26561788")]
+        //[TestCase("26562810")]
+        //[TestCase("26377464")]
+        //[TestCase("26658410")]
+        //[TestCase("26657225")]
+        //[TestCase("25816345")]
+        //[TestCase("25769942")]
         public void PagoUnMesDeuda(string NroServicio)
         {
             SuministroPagina suministroPagina = new SuministroPagina(Driver);
